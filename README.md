@@ -123,7 +123,7 @@ After the tests pass, the workflow:
 
 Configure these repository settings before enabling the Docker publishing job:
 
-- **Variable:** `DOCKER_USERNAME` — the Docker Hub username (`Shivam0459` in this repository)
+- **Secret:** `DOCKER_HUB_USERNAME` — the Docker Hub username (`Shivam0459` in this repository)
 - **Secret:** `DOCKER_HUB_TOKEN` — a Docker Hub access token, not the Docker Hub password
 
 Store only the raw token in `DOCKER_HUB_TOKEN`. Do not include `Bearer`, quotes, JSON, or surrounding whitespace. If the login step reports `malformed HTTP Authorization header`, revoke the existing token, create a new Docker Hub access token, and replace this secret with the newly copied raw value.
