@@ -11,7 +11,7 @@ A simple Express.js web application created to demonstrate a complete DevOps wor
 - Continuous integration and delivery with GitHub Actions
 - Automatic Docker Hub image publishing on pushes to the `main` branch
 
-## Tech Stack
+# Tech Stack
 
 - **Runtime:** Node.js 18
 - **Framework:** Express.js 4
