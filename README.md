@@ -1,15 +1,13 @@
-# Node.js DevOps CI/CD Demo
+# DevOps Task 1: CI/CD Pipeline automation
 
-A simple Express.js web application created to demonstrate a complete DevOps workflow with automated testing, Docker containerization, and GitHub Actions CI/CD.
+In this task, I have successfully automated the code deployment process using GitHub Actions. 
 
-## Features
-
-- Express.js application served on port `3000`
-- Static frontend assets served from the `public/` directory
-- Automated Node.js test execution
-- Docker image build using a lightweight Node.js Alpine image
-- Continuous integration and delivery with GitHub Actions
-- Automatic Docker Hub image publishing on pushes to the `main` branch
+**Steps completed:**
+1. Created a sample Node.js application.
+2. Wrote a `Dockerfile` to containerize the application.
+3. Configured GitHub Secrets for DockerHub authentication.
+4. Created a `.github/workflows/main.yml` file to automate the Build, Test, and Push process.
+5. Successfully pushed the Docker image to DockerHub automatically on code push.
 
 # Tech Stack
 
@@ -119,11 +117,4 @@ After the tests pass, the workflow:
    <DOCKER_USERNAME>/nodejs-demo-app:latest
    ```
 
-### Docker Hub credentials
 
-Configure these repository settings before enabling the Docker publishing job:
-
-- **Secret:** `DOCKER_HUB_USERNAME` — the Docker Hub username (`Shivam0459` in this repository)
-- **Secret:** `DOCKER_HUB_TOKEN` — a Docker Hub access token, not the Docker Hub password
-
-Store only the raw token in `DOCKER_HUB_TOKEN`. Do not include `Bearer`, quotes, or JSON. The workflow removes accidental line breaks before login. If the login step still reports `malformed HTTP Authorization header`, revoke the existing token, create a new Docker Hub access token, and replace this secret with the newly copied raw value.
