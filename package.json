@@ -1,0 +1,12 @@
+{
+  "name": "devops-cicd-app",
+  "version": "1.0.0",
+  "description": "Simple Node.js application for a DevOps CI/CD pipeline task",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
