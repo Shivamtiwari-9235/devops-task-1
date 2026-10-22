@@ -119,25 +119,3 @@ After the tests pass, the workflow:
    <DOCKER_USERNAME>/nodejs-demo-app:latest
    ```
 
-## GitHub Actions Configuration
-
-Configure the following repository-level settings before enabling Docker image publishing:
-
-- **Variable:** `DOCKER_USERNAME` — your Docker Hub username
-- **Secret:** `DOCKER_HUB_TOKEN` — a Docker Hub access token
-
-The workflow uses the Docker Hub token instead of a password for authentication.
-
-## Docker Hub Image
-
-Once the workflow completes successfully, pull the published image with:
-
-```bash
-docker pull <DOCKER_USERNAME>/nodejs-demo-app:latest
-```
-
-Replace `<DOCKER_USERNAME>` with the configured Docker Hub username.
-
-## License
-
-This project is intended for learning and DevOps practice. Add a project-specific license if you plan to distribute or reuse it publicly.
