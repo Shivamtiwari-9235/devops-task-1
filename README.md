@@ -34,7 +34,7 @@ A simple Express.js web application created to demonstrate a complete DevOps wor
 └── README.md              # Project documentation
 ```
 
-## Prerequisites
+# Prerequisites
 
 Install the following tools before running the project locally:
 
