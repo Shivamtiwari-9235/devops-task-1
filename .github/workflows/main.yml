@@ -33,11 +33,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          registry: docker.io
-          username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        env:
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: |
+          token="$(printf '%s' "$DOCKER_HUB_TOKEN" | tr -d '\r\n' | sed -E 's/^Bearer[[:space:]]+//' | sed -E 's/^"(.*)"$/\1/')"
+          if [ -z "$token" ]; then
+            echo "DOCKER_HUB_TOKEN is empty after normalization."
+            exit 1
+          fi
+          echo "::add-mask::$token"
+          printf '%s' "$token" | docker login -u "${{ vars.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
@@ -45,3 +50,7 @@ jobs:
           context: .
           push: true
           tags: ${{ vars.DOCKER_USERNAME }}/nodejs-demo-app:latest
+
+      - name: Logout from Docker Hub
+        if: always()
+        run: docker logout
