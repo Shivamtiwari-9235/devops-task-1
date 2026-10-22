@@ -32,12 +32,30 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Normalize Docker Hub token
+        id: docker-token
+        env:
+          RAW_DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: |
+          TOKEN="$(printf '%s' "$RAW_DOCKER_TOKEN" \
+            | tr -d '\r\n' \
+            | sed -E 's/^[[:space:]]+|[[:space:]]+$//g' \
+            | sed -E 's/^Bearer[[:space:]]+//I' \
+            | sed -E 's/^"(.*)"$/\1/' \
+            | sed -E "s/^'(.*)'$/\1/")"
+          if [ -z "$TOKEN" ]; then
+            echo "DOCKER_HUB_TOKEN is empty after normalization" >&2
+            exit 1
+          fi
+          echo "::add-mask::$TOKEN"
+          echo "value=$TOKEN" >> "$GITHUB_OUTPUT"
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           registry: docker.io
           username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          password: ${{ steps.docker-token.outputs.value }}
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
